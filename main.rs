@@ -25,4 +25,26 @@ fn main() {
     println!("{number:0>10}", number=1); // 0000000001
     // and left-adjust by flipping the sign. This will output "10000".
     println!("{number:0<5}", number=1); // 10000
+
+    // Rust even checks to make sure the correct number of arguments are used.
+    println!("My name is {0}, {1} {0}", "Bond", "added");
+    // FIXME ^ Add the missing argument: "James"
+
+    // Only types that implement fmt::Display can be formatted with `{}`. User-
+    // defined types do not implement fmt::Display by default.
+
+    #[allow(dead_code)] // disable `dead_code` which warn against unused module
+    struct Structure(i32);
+
+    // This will not compile because `Structure` does not implement
+    // fmt::Display.
+    // println!("This struct `{}` won't print...", Structure(3));
+    // TODO ^ Try uncommenting this line
+
+    // For Rust 1.58 and above, you can directly capture the argument from a
+    // surrounding variable. Just like the above, this will output
+    // "    1", 4 white spaces and a "1".
+    let number: f64 = 1.0;
+    let width: usize = 5;
+    println!("{number:>width$}");
 }
